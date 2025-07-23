@@ -1,0 +1,1 @@
+print(int(input().strip())%20000303)
