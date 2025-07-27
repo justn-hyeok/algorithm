@@ -1,30 +1,30 @@
+import sys
+input = sys.stdin.readline
+
 while True:
     try:
         x = int(input()) * 10000000
         n = int(input())
-        a = [int(input()) for _ in range(n)]
-        a.sort()
+        a = sorted(int(input()) for _ in range(n))
         
         ans = None
         max_diff = -1
         
         l, r = 0, n-1
         while l < r:
-            if a[l] + a[r] < x:
+            total = a[l] + a[r]
+            if total < x:
                 l += 1
-            elif a[l] + a[r] > x:
+            elif total > x:
                 r -= 1
             else:
-                diff = abs(a[l] - a[r])
+                diff = a[r] - a[l]  # abs() 제거 (이미 정렬되어 있음)
                 if diff > max_diff:
                     max_diff = diff
                     ans = (a[l], a[r])
                 l += 1
                 r -= 1
         
-        if ans:
-            print(f'yes {ans[0]} {ans[1]}')
-        else:
-            print('danger')
+        print(f'yes {ans[0]} {ans[1]}' if ans else 'danger')
     except:
         break
